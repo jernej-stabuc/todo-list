@@ -27,4 +27,17 @@ public class TodoList {
         }
         return null;
     }
+    public boolean isTaskCompleted(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            Task task = tasks.get(index);
+            return task.isCompleted();
+        }
+        return false;
+    }
+    public void markTaskAsCompleted(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            Task task = tasks.get(index);
+            task.markAsCompleted();
+        }
+    }
 }
