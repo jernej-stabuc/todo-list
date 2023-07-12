@@ -3,13 +3,21 @@ import java.util.List;
 
 public class TodoList {
     private List<Task> tasks;
+    private List<Task> completed;
 
     public TodoList() {
         tasks = new ArrayList<>();
+        completed = new ArrayList<>();
     }
+
+    //change method refactor
     public int getSize() {
+        if (!completed.isEmpty()) {
+            return completed.size();
+        }
         return tasks.size();
     }
+
     public void addTask(String description) {
         if (description == null || description.trim().isEmpty()) {
             return;
@@ -38,6 +46,14 @@ public class TodoList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.markAsCompleted();
+        }
+    }
+    public void moveTasksToCompleted() {
+        for (Task task : tasks) {
+            if (task.isCompleted()) {
+                tasks.remove(task);
+                completed.add(task);
+            }
         }
     }
 }

@@ -45,6 +45,17 @@ public class TodoListTest {
         assertFalse(todoList.isTaskCompleted(0));
         assertFalse(todoList.isTaskCompleted(1));
     }
+    @Test
+    public void testAddTaskToCompletedList() {
+        TodoList todoList = new TodoList();
+        todoList.addTask("Buy groceries");
+        todoList.addTask("Do laundry");
 
+        todoList.markTaskAsCompleted(0);
+        todoList.moveTasksToCompleted();
+        //Task firstCompletedTask = completed.getTask(0);
+        assertEquals(1, todoList.getSize());
+        //assertEquals("Buy groceries", firstCompletedTask.getDescription());
+    }
 
 }
