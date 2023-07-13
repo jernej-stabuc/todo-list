@@ -9,13 +9,12 @@ public class TodoList {
         tasks = new ArrayList<>();
         completed = new ArrayList<>();
     }
-
+    public List<Task> getCompletedTasks() {
+        return new ArrayList<>(completed);
+    }
     //change method refactor
     public int getSize() {
-        if (!completed.isEmpty()) {
-            return completed.size();
-        }
-        return tasks.size();
+        return tasks.size() + completed.size();
     }
 
     public void addTask(String description) {
@@ -27,7 +26,7 @@ public class TodoList {
     }
 
     public boolean isEmpty() {
-        return tasks == null || tasks.isEmpty();
+        return tasks.isEmpty() && completed.isEmpty();
     }
     public Task getTask(int index) {
         if (index >= 0 && index < tasks.size()) {
@@ -46,14 +45,8 @@ public class TodoList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             task.markAsCompleted();
-        }
-    }
-    public void moveTasksToCompleted() {
-        for (Task task : tasks) {
-            if (task.isCompleted()) {
-                tasks.remove(task);
-                completed.add(task);
-            }
+            tasks.remove(index);
+            completed.add(task);
         }
     }
 }

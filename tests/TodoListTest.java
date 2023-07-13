@@ -1,5 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
@@ -34,8 +37,9 @@ public class TodoListTest {
         todoList.addTask("Do laundry");
 
         todoList.markTaskAsCompleted(1);
+        List<Task> completedTasks = todoList.getCompletedTasks();
         assertFalse(todoList.isTaskCompleted(0));
-        assertTrue(todoList.isTaskCompleted(1));
+        assertTrue(completedTasks.contains(new Task("Do laundry")));
     }
     @Test
     public void testIsTaskCompleted() {
@@ -46,16 +50,25 @@ public class TodoListTest {
         assertFalse(todoList.isTaskCompleted(1));
     }
     @Test
-    public void testAddTaskToCompletedList() {
+    public void testGetCompletedTasks() {
         TodoList todoList = new TodoList();
-        todoList.addTask("Buy groceries");
-        todoList.addTask("Do laundry");
+        todoList.addTask("Task 1");
+        todoList.addTask("Task 2");
+        todoList.addTask("Task 3");
 
+        // Mark tasks as completed
         todoList.markTaskAsCompleted(0);
-        todoList.moveTasksToCompleted();
-        //Task firstCompletedTask = completed.getTask(0);
-        assertEquals(1, todoList.getSize());
-        //assertEquals("Buy groceries", firstCompletedTask.getDescription());
+        todoList.markTaskAsCompleted(1);
+
+        // Retrieve completed tasks
+        List<Task> completedTasks = todoList.getCompletedTasks();
+
+        // Assert the size of the completed tasks list
+        assertEquals(2, completedTasks.size());
+
+        // Assert the specific completed tasks
+        assertTrue(completedTasks.contains(new Task("Task 1")));
+        assertTrue(completedTasks.contains(new Task("Task 3")));
     }
 
 }
