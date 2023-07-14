@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoList {
+public class TodoList implements ITodoList {
     private List<Task> tasks;
     private List<Task> completed;
 
@@ -12,7 +12,6 @@ public class TodoList {
     public List<Task> getCompletedTasks() {
         return new ArrayList<>(completed);
     }
-    //change method refactor
     public int getSize() {
         return tasks.size() + completed.size();
     }
@@ -28,25 +27,45 @@ public class TodoList {
     public boolean isEmpty() {
         return tasks.isEmpty() && completed.isEmpty();
     }
+    public void clearTasks() {
+        tasks.clear();
+    }
+
+    private boolean isValidIndex(int index) {
+        return index >= 0 && index < tasks.size();
+    }
     public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
+        if (isValidIndex(index)) {
             return tasks.get(index);
         }
         return null;
     }
     public boolean isTaskCompleted(int index) {
-        if (index >= 0 && index < tasks.size()) {
+        if (isValidIndex(index)) {
             Task task = tasks.get(index);
             return task.isCompleted();
         }
         return false;
     }
     public void markTaskAsCompleted(int index) {
-        if (index >= 0 && index < tasks.size()) {
+        if (isValidIndex(index)) {
             Task task = tasks.get(index);
             task.markAsCompleted();
             tasks.remove(index);
             completed.add(task);
         }
+    }
+    public void editTaskDescription(int index, String newDescription) {
+        if (isValidIndex(index)) {
+            Task task = tasks.get(index);
+            task.setDescription(newDescription);
+        }
+    }
+    public String getTaskDescription(int index) {
+        if (isValidIndex(index)) {
+            Task task = tasks.get(index);
+            return task.getDescription();
+        }
+        return null;
     }
 }
