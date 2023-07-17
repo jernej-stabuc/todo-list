@@ -1,17 +1,22 @@
 import java.util.Objects;
 
-public class Task {
+public class Task implements Comparable<Task> {
     private String description;
     private boolean completed;
+    private Priority priority;
     public Task(String description) {
         this.description = description;
         this.completed = false;
+        this.priority = Priority.MEDIUM;
     }
     public boolean isCompleted() {
         return completed;
     }
     public String getDescription() {
         return description;
+    }
+    public Priority getPriority() {
+        return priority;
     }
     public void markAsCompleted() {
         completed = true;
@@ -35,5 +40,14 @@ public class Task {
 
     public void setDescription(String newDescription) {
         description = newDescription;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        return this.description.compareTo(other.description);
     }
 }

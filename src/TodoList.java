@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TodoList implements ITodoList {
@@ -68,4 +69,17 @@ public class TodoList implements ITodoList {
         }
         return null;
     }
+    public void sortTasksByDescription() {
+        Collections.sort(tasks);
+    }
+
+  /*  public List<Task> filterTasksByCompletionStatus(boolean finished) {
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task: tasks) {
+            if (task.isCompleted() == finished) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }*/
 }

@@ -1,5 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Collection;
 import java.util.List;
 import static org.junit.Assert.*;
 
@@ -73,6 +75,31 @@ public class TodoListTest {
     public void testEditTaskDescription() {
         todoList.editTaskDescription(1, "Clean entire house");
         assertEquals("Clean entire house", todoList.getTaskDescription(1));
+    }
+
+    @Test
+    public void testSortTasksByDescription() {
+        TodoList todoList = new TodoList();
+        todoList.addTask("Walk dog");
+        todoList.addTask("Do laundry");
+        todoList.addTask("Buy groceries");
+
+        //sort by description
+        todoList.sortTasksByDescription();
+
+        assertEquals("Buy groceries", todoList.getTaskDescription(0));
+        assertEquals("Do laundry", todoList.getTaskDescription(1));
+        assertEquals("Walk dog", todoList.getTaskDescription(2));
+    }
+    @Test
+    public void testSetAndGetPriority() {
+        Task task = new Task("Task 1");
+
+        //set the task priority
+        task.setPriority(Priority.HIGH);
+
+        //verify task priority
+        assertEquals(Priority.HIGH, task.getPriority());
     }
 
 }
