@@ -1,13 +1,18 @@
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Task implements Comparable<Task> {
     private String description;
     private boolean completed;
     private Priority priority;
+    private LocalDate dueDate;
+    private String label;
     public Task(String description) {
         this.description = description;
         this.completed = false;
         this.priority = Priority.MEDIUM;
+        this.dueDate = null;
+        this.label = null;
     }
     public boolean isCompleted() {
         return completed;
@@ -17,6 +22,14 @@ public class Task implements Comparable<Task> {
     }
     public Priority getPriority() {
         return priority;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
     }
     public void markAsCompleted() {
         completed = true;
@@ -49,5 +62,18 @@ public class Task implements Comparable<Task> {
     @Override
     public int compareTo(Task other) {
         return this.description.compareTo(other.description);
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public boolean isOverdue() {
+        LocalDate today = LocalDate.now();
+        return dueDate != null && dueDate.isBefore(today);
     }
 }

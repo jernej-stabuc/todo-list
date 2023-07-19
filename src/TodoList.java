@@ -1,6 +1,8 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TodoList implements ITodoList {
     private List<Task> tasks;
@@ -73,13 +75,29 @@ public class TodoList implements ITodoList {
         Collections.sort(tasks);
     }
 
-  /*  public List<Task> filterTasksByCompletionStatus(boolean finished) {
+    public List<Task> filterByDueDate(LocalDate dueDate) {
+        return filterTasks(task -> task.getDueDate() != null && task.getDueDate().isEqual(dueDate));
+    }
+
+    public List<Task> filterByPriority(Priority priority) {
+        return filterTasks(task -> task.getPriority() == priority);
+    }
+
+    public List<Task> filterByLabel(String label) {
+        return filterTasks(task -> label.equalsIgnoreCase(task.getLabel()));
+    }
+
+    public List<Task> filterByCompletion(Boolean completed) {
+        return filterTasks(task -> task.isCompleted() == completed);
+    }
+
+    public List<Task> filterTasks(Predicate<Task> predicate) {
         List<Task> filteredTasks = new ArrayList<>();
         for (Task task: tasks) {
-            if (task.isCompleted() == finished) {
+            if (predicate.test(task)) {
                 filteredTasks.add(task);
             }
         }
         return filteredTasks;
-    }*/
+    }
 }
